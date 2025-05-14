@@ -1,0 +1,7 @@
+Admin login
+email: visal@gmail.com
+password: visal1234
+
+User login 
+email :- dulaj.dulsith@gmail.com
+password :- 1234
