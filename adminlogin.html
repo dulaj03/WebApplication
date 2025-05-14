@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="icon" type="image/png" href="Img/TitleLogo.png">
+  <link rel="stylesheet" href="css/logstyles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h2>Admin Login</h2>    <form action="adminlogin.php" method="POST">      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</body>
+
+<!--
+  CREATE TABLE IF NOT EXISTS admin (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create a test admin user (email: admin@example.com, password: admin123)
+INSERT INTO admin (email, password) VALUES 
+('admin@example.com', '.z7X4h9V8CqMxGV6ZeuPV.JOoCb0/OetT9zyHg2svxutDkXsq');
+-->
+
+</html>

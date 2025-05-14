@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growsmart - Your Gardening Assistant</title>
+    <link rel="icon" type="image/png" href="Img/TitleLogo.png">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Font awesome file link -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <script>
+        // Function to load header component
+        function loadHeader() {
+            fetch('components/header.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                    document.getElementById('header-container').innerHTML = '<p>Error loading header. Please refresh the page.</p>';
+                });
+        }
+        
+        // Load header when the document is ready
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+</head>
+<body>
+    <!-- Header container where the header will be loaded -->
+    <div id="header-container"></div>
+
+    <!--home section starts-->
+    <section class="home" home>
+
+        <div class="content">
+            <h4>fresh and <span> organic </span> products for you</h4>
+            <p>From heirloom seeds and organic fertilizers to eco-friendly
+                 tools and expert gardening advice, we provide everything you 
+                 need to create a flourishing garden that supports biodiversity 
+                 and enhances soil health.</p>
+                 <a href="shop.php" class="btn">Shop Now</a>
+        </div>
+
+    </section>
+
+    <!--home section ends-->
+
+    <!--home about section starts-->
+    <section class="home-about">
+        <div class="image">
+            <img src="Img/5555.jpg" alt="About Us Image">
+        </div>
+    
+        <div class="content">
+            <h1 class="heading">About <span>Us</span></h1>
+            <p>Welcome to GrowSmart, your all-in-one gardening companion! 
+                We are passionate about empowering individuals—whether seasoned 
+                gardeners or beginners—to cultivate thriving gardens using smart 
+                technology and community-driven support.
+                At GrowSmart, we offer personalized plant care advice, AI-powered solutions, 
+                and a vibrant marketplace where users can buy and sell organic produce and gardening
+                 essentials. Our platform is designed to foster sustainable gardening practices, aligning 
+                 with UN Sustainable Development Goal 15 (Life on Land) by promoting eco-friendly land use and biodiversity conservation.
+            </p> <a href="about us.html" class="btn">about us</a>
+        </div>
+    </section>
+    
+
+    <!--home about section starts-->
+
+    <!--about section starts-->
+    <section class="about" id="about">
+        <h1 class="heading">Our <span>Purposes</span></h1>
+        <p>An eco-friendly garden help site can serve multiple purposes, making it beneficial for individuals, communities, 
+            and the environment.</p>
+
+        <div class="row">
+            <div class="course-col">
+                <h3>Educating Gardeners on Sustainable Practices</h3>
+                 <p>Provide tips on organic gardening, composting, and reducing chemical fertilizers.
+                    Guide users on water conservation techniques like drip irrigation and rainwater harvesting.  </p>
+                
+            </div>
+            <div class="course-col">
+                <h3>Sustainable Gardening Marketplace</h3>
+                 <p>Allow users to buy and sell eco-friendly gardening products (organic seeds, tools, compost).</br>
+                    Promote ethical and sustainable brands for gardening supplies.  </p>
+                
+            </div>
+            <div class="course-col">
+                <h3>Supporting Community & Urban Gardening</h3>
+                 <p>Connect users to local gardening groups or community garden projects.</br>
+                    Provide step-by-step guides on urban gardening (rooftop gardens, vertical gardens).
+                     </p>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!--about section ends-->
+
+    <!--features section starts-->
+
+    <section class="features" id="features">
+        <h1 class="heading">Our <span>features</span></h1>
+
+        <div class="box-container">
+            <div class="box">
+                <img src="Img/36.jpg" alt="">
+                <h3>Shop Organic</h3>
+                <p>Switching to organic products means choosing food free from harmful pesticides, synthetic fertilizers, and GMOs. </p>
+                <a href="shop.php" class="btn">View more</a>
+            </div>
+        
+            <div class="box">
+                <img src="Img/ppp.jpg" alt="">
+                <h3>Learn & Grow</h3>
+                <p>Knowledge is the key to growth! Whether you're exploring organic farming, sustainable gardening, or eco-friendly living, continuous learning helps you make informed choices. </p>
+                <a href="Idea & Inspiration.html" class="btn">View more</a>
+            </div>
+        
+            <div class="box">
+                <img src="Img/lll.jpg" alt="">
+                <h3>Join the Community</h3>
+                <p>Be part of a like-minded community passionate about sustainability, organic living, and smart gardening. </p>
+                <a href="about us.html" class="btn">View more</a>
+            </div>
+        </div>
+        
+    </section>
+    <!--features section ends-->
+</br>
+</br>
+    <!--service section starts-->
+    <section class="service" id="service">
+        <h1 class="heading">sustainable <span>Development</span></h1>
+
+        <p>SDG 15 focuses on protecting, restoring, and promoting the sustainable use of terrestrial 
+            ecosystems to prevent land degradation, deforestation, and biodiversity loss. An eco-friendly 
+            organic garden plays a crucial role in achieving these goals.</p>
+
+        </br></br></br>
+
+       
+
+        <div class="box-container">
+            <div class="box">
+                <i class="fa-solid fa-leaf" style="color: #28a745;"></i>
+                <h3>Promoting Biodiversity Through Native Plants & Habitat Preservation</h3>
+                <p>Organic agriculture is a farming method that relies on natural processes, biodiversity, and 
+                    ecological balance instead of synthetic chemicals.</p>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-tree" style="color: rgb(103, 197, 116); "></i>  
+                <h3>Reducing Deforestation by Promoting Sustainable Land Use</h3>
+                <p>Deforestation leads to climate change, loss of biodiversity, and desertification. Sustainable 
+                    gardening helps by maintaining green spaces and preventing land degradation.</p>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-seedling"></i>
+                <h3>Encouraging Soil Conservation Through Organic Farming</h3>
+                <p>Healthy soil is essential for food production, water filtration, and carbon storage. Organic 
+                    gardening protects soil health.</p>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-plant-wilt"></i>
+                <h3>Preventing Land Degradation & Desertification</h3>
+                <p>Land degradation occurs due to deforestation, overuse of chemical fertilizers, and poor 
+                    agricultural practices. Organic gardening helps restore degraded land and prevents desertification.</p>
+            </div>
+        
+            <div class="box">
+                <i class="fa-solid fa-water" style="color: dodgerblue;"></i>
+                <h3>Reducing Pollution & Chemical Runoff</h3>
+                <p>Industrial agriculture heavily relies on synthetic fertilizers and pesticides, which pollute water bodies and harm ecosystems.</p>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-hand-holding-water"></i>
+                <h3>Supporting Carbon Sequestration & Climate Resilience </h3>
+                <p>Gardens, especially those with trees and deep-rooted plants, absorb carbon dioxide from the air, reducing the impact of climate change.</p>
+            </div>
+        </div>
+        
+    </section>
+    <!--service section starts-->
+</br>
+</br>
+
+
+    <!--footer section starts-->
+     <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+               <h3>Growsmart <i class="fas fa-seedling"></i></h3>
+               <p>"Sustainable Farming for a Greener Tomorrow."</p>
+               <div class="social-links">
+                <a href="https://www.facebook.com/yourpage" target="_blank" class="fab fa-facebook"></a>
+                <a href="https://www.youtube.com/yourchannel" target="_blank" class="fab fa-youtube"></a>
+                <a href="https://www.instagram.com/yourprofile" target="_blank" class="fab fa-instagram"></a>
+            </div>
+            
+            </div>
+
+            <div class="box">
+                <h3>Contact Info</h3>
+                <a href="#" class="links"><i class="fas fa-phone" onclick="openTelLink()"></i>+94 11 111 1111</a>
+                <a href="#" class="links"><i class="fas fa-phone" onclick="openTelLink()"></i>+94 22 222 2222</a>
+                <a href="mailto:Growsmart@gmail.com" class="links"><i class="fas fa-envelope" onclick="checker()"></i>Growsmart@gmail.com</a>
+                <a href="#" class="links"><i class="fas fa-map-marker-alt"></i>Colombo,sri lanka</a>
+             </div>  
+             
+             <div class="box">
+                <h3>Quick Links</h3>
+                <a href="home new.html" class="links"><i class="fas fa-arrow-right"></i>Home</a>
+            
+                <!-- Dropdown for Plants -->
+                <div class="dropdown">
+                    <a href="Plants" class="links dropdown-toggle">
+                        <i class="fas fa-arrow-right"></i>categories ▼
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="indoorplants.html">House Plants</a>
+                        <a href="fruits & vegetables.html">Fruits and Vegetables</a>
+                        <a href="flowers.html">Flowers</a>
+                        <a href="sustainable.html">Sustainability Garden</a>
+                        </div>
+                </div>
+            </br>
+                <a href="shop.php" class="links"><i class="fas fa-arrow-right"></i>Shop</a>
+                <a href="offer.php" class="links"><i class="fas fa-arrow-right"></i>Offers</a>
+                <a href="Competition.html" class="links"><i class="fas fa-arrow-right"></i>Compitition</a>
+                <div class="dropdown">
+                    <a href="chat" class="links dropdown-toggle">
+                        <i class="fas fa-arrow-right"></i> Chat ▼
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="components/Virtual Assistant.html">AI Chat</a>
+                        <a href="server/public/index.html">Community</a>
+                    
+                    </div>
+                </div>
+            </br>
+                <div class="dropdown">
+                    <a href="More" class="links dropdown-toggle">
+                        <i class="fas fa-arrow-right"></i>More ▼
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="Learning.html">Learning</a>
+                        <a href="Idea & Inspiration.html">Ideas & Inspiration</a>
+                    </div>
+                </div>
+            </div>
+            
+
+             <div class="box">
+                <h3>Newsletter</h3>
+                <p>Stay us with more informations</p>
+            
+                <div class="box">
+                    <h3>User informations</h3>
+                <a href="guidelines.html" class="links">User Guidelines</a>
+
+                <div class="box">
+                    <h3>Terms and Conditions</h3>
+                <a href="Terms and Conditions.html" class="links">Terms and Conditions</a>
+               
+                <div class="box">
+                    <h3>Privacy and Policy</h3>
+                <a href="Privacy and Policy.html" class="links">Privacy and Policy</a>
+
+
+                
+             </div>  
+        </div>
+
+    </br></br></br></br>
+
+       
+    </section>
+    <!--footer section ends-->
+
+
+    <body>
+        <section class="footer">
+            <div class="credit">
+                created by <span>© 2025 GrowSmart.</span> | all rights reserved
+            </div>
+        </section>
+        
+    <script src="js/script.js"></script>
+</body>
+
+
+<!-- Floating Action Button -->
+<style>
+
+/* Floating Action Button Styles */
+.fab-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.fab-button {
+  background-color: #00e81f;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, background-color 0.3s;
+}
+
+.fab-button:hover {
+    background-color: #00ca2f;
+}
+
+.fab-button.open {
+  transform: rotate(45deg);
+  background-color: #fc390d; /* Optional: Change the color when open */
+}
+
+.fab-button.open:hover {
+    background-color: #d42c06;
+}
+
+.fab-options {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.fab-option {
+  background-color: #00e81f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.fab-option:hover {
+    background-color: #00ca2f;
+}
+
+.fab-options.show .fab-option {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fab-options.show {
+  display: flex;
+}
+
+</style>
+
+<!-- Floating Action Button -->
+<div class="fab-container">
+    <div class="fab-button" onclick="toggleFAB()">
+      <i class="fas fa-plus" id="fab-icon"></i>
+    </div>
+    <div class="fab-options" id="fab-options">
+      <button onclick="window.location.href='./components/Virtual Assistant.html'" class="fab-option" title="AI Assistant">
+        <i class="fas fa-robot"></i>
+      </button>
+      <button onclick="window.location.href='./server/public/index.html'" class="fab-option" title="Chat">
+        <i class="fas fa-comments"></i>
+      </button>
+    </div>
+  </div>
+
+<!-- Floating Action Button -->  
+<script>
+    function toggleFAB() {
+      const options = document.getElementById("fab-options");
+      const fabButton = document.querySelector(".fab-button");
+      const fabIcon = document.getElementById("fab-icon");
+  
+      // Toggle the display of the options
+      options.classList.toggle("show");
+  
+      // Toggle the open class for the main button
+      fabButton.classList.toggle("open");
+  
+      // Change the icon based on whether the options are open or closed
+      if (fabButton.classList.contains("open")) {
+        fabIcon.classList.remove("fa-plus");
+        fabIcon.classList.add("fa-times"); // Change to close icon (X)
+      } else {
+        fabIcon.classList.remove("fa-times");
+        fabIcon.classList.add("fa-plus"); // Change back to plus icon
+      }
+    }
+  </script>
+  
+<!-- Onclick Prompt -->
+<script>
+        function checker()
+        {
+            var result= confirm('Open Pick an App?');
+            if ( result == false) {
+                event.preventDefault();
+            }
+        }
+</script>
+
+<!-- JS for Opening the App list in the User device -->
+<script>
+        function openTelLink() {
+        // This will trigger the app picker
+        window.location.href = "tel:+94 11 111 1111";
+        }
+</script>
+    
+<script>
+        function openTelLink() {
+        // This will trigger the app picker
+        window.location.href = "tel:+94 22 222 2222";
+        }
+</script>
+
+<script src="http://localhost:3500/socket.io/socket.io.js"></script>
+
+<script src="server/public/app.js" defer></script>
+
+
+</body>
+</html>

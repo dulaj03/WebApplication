@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growsmart - Your Virtual Assistant</title>
+    <link rel="icon" type="image/png" href="/Img/TitleLogo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="../css/virtual.css">
+
+       
+</head>
+<body>
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <h2>🌱 Growsmart Virtual Assistant</h2>
+            <div class="header-icons">
+                <i class="fas fa-info-circle" id="infoButton"></i>
+                <i class="fas fa-expand" id="fullscreenButton"></i>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="category-buttons" id="categoryButtons"></div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Ask me about plants...">
+            <button id="sendButton">Send</button>
+        </div>
+        <button class="plant-quiz-btn" id="plantQuizBtn">Plant Quiz</button>
+    </div>
+
+    <div id="plantQuizModal" class="modal">
+        <div class="modal-content" id="quizContent"></div>
+    </div>
+
+    <div id="infoModal" class="info-modal">
+        <div class="modal-content">
+            <h2>About Growsmart Plant AI</h2>
+            <p>Growsmart is your intelligent plant care assistant, designed to help you succeed with your plants.</p>
+            <h3>Features:</h3>
+            <ul>
+                <li>Detailed plant care information</li>
+                <li>Plant identification assistance</li>
+                <li>Gardening tips and best practices</li>
+                <li>Plant health diagnostics</li>
+                <li>Interactive plant care quizzes</li>
+            </ul>
+            <p>Version 1.0</p>
+            <button id="closeInfoModal" style="background-color: var(--primary-green); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 15px;">Close</button>
+        </div>
+    </div>
+
+    <a href="../home new.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>Home
+    </a>
+
+    <script>
+        class PlantChatbot {
+            constructor() {
+                this.initializeEventListeners();
+                this.displayWelcomeMessage();
+                this.plantDictionary = {};
+                this.isFullScreen = false;
+                this.loadPlantDictionary();
+            }
+
+            async loadPlantDictionary() {
+    try {
+        // Get all categories with corrected path
+        const categoriesResponse = await fetch('/GrowSmart_Web/components/virtual_assistant.php?action=get_categories');
+        
+        // Check if the response is JSON
+        const categoriesContentType = categoriesResponse.headers.get("Content-Type");
+        if (!categoriesContentType || !categoriesContentType.includes('application/json')) {
+            throw new Error("Categories response is not JSON");
+        }
+        
+        const categories = await categoriesResponse.json();
+
+        // For each category, get plants
+        for (const category of categories) {
+            const plantsResponse = await fetch(`/GrowSmart_Web/components/virtual_assistant.php?action=get_plants_by_category&category=${encodeURIComponent(category)}`);
+            
+            // Check if the response is JSON
+            const plantsContentType = plantsResponse.headers.get("Content-Type");
+            if (!plantsContentType || !plantsContentType.includes('application/json')) {
+                throw new Error(`Plants response for category ${category} is not JSON`);
+            }
+
+            const plants = await plantsResponse.json();
+            
+            // Add each plant to dictionary
+            for (const plant of plants) {
+                this.plantDictionary[plant.name.toLowerCase()] = {
+                    id: plant.id,
+                    name: plant.name,
+                    category: category
+                };
+            }
+        }
+
+        console.log("Plant dictionary loaded");
+    } catch (error) {
+        console.error("Error loading plant dictionary:", error);
+        // Optionally display a message to the user in case of failure
+        this.addMessage("Sorry, I'm having trouble loading the plant dictionary.");
+    }
+}
+
+
+            initializeEventListeners() {
+                document.getElementById('sendButton').addEventListener('click', () => this.handleUserInput());
+                document.getElementById('userInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.handleUserInput();
+                });
+                document.getElementById('plantQuizBtn').addEventListener('click', () => this.startPlantQuiz());
+                
+                document.getElementById('infoButton').addEventListener('click', () => this.toggleInfoModal());
+                document.getElementById('fullscreenButton').addEventListener('click', () => this.toggleFullScreen());
+                document.getElementById('closeInfoModal').addEventListener('click', () => this.toggleInfoModal());
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isFullScreen) {
+                        this.toggleFullScreen();
+                    }
+                });
+            }
+
+            toggleInfoModal() {
+                const infoModal = document.getElementById('infoModal');
+                if (infoModal.style.display === 'flex') {
+                    infoModal.style.display = 'none';
+                } else {
+                    infoModal.style.display = 'flex';
+                }
+            }
+
+            toggleFullScreen() {
+                const chatContainer = document.querySelector('.chatbot-container');
+                if (!this.isFullScreen) {
+                    chatContainer.classList.add('fullscreen-mode');
+                    document.getElementById('fullscreenButton').innerHTML = '<i class="fas fa-compress-alt"></i>';
+                } else {
+                    chatContainer.classList.remove('fullscreen-mode');
+                    document.getElementById('fullscreenButton').innerHTML = '<i class="fas fa-expand-alt"></i>';
+                }
+                this.isFullScreen = !this.isFullScreen;
+            }
+
+            addMessage(message, type = 'bot') {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', `${type}-message`);
+                messageElement.innerHTML = message;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            displayWelcomeMessage() {
+                this.addMessage(`
+                    Welcome to Growsmart Plant AI Companion! 🌿<br>
+                    I'm your intelligent plant care assistant. <br>
+                    I can help you with: <br>
+                    • Plant Care Advice<br>
+                    • Gardening Tips<br>
+                    • Plant Identification<br>
+                    • Plant Health Diagnostics<br>
+                    <br>
+                    What would you like to know?
+                `);
+                this.loadCategories();
+            }
+
+            async loadCategories() {
+                try {
+                    const response = await fetch('/GrowSmart_Web/components/virtual_assistant.php?action=get_categories');
+                    const categories = await response.json();
+                    this.displayCategories(categories);
+                } catch (error) {
+                    console.error("Error fetching categories:", error);
+                    this.addMessage("Sorry, I'm having trouble loading plant categories.");
+                }
+            }
+
+            displayCategories(categories) {
+                const categoryButtons = document.getElementById('categoryButtons');
+                categoryButtons.innerHTML = '';
+                
+                categories.forEach(category => {
+                    const btn = document.createElement('button');
+                    btn.textContent = category;
+                    btn.classList.add('category-btn');
+                    btn.addEventListener('click', () => this.loadPlantsByCategory(category));
+                    categoryButtons.appendChild(btn);
+                });
+            }
+
+            async loadPlantsByCategory(category) {
+                try {
+                    const response = await fetch(`/GrowSmart_Web/components/virtual_assistant.php?action=get_plants_by_category&category=${encodeURIComponent(category)}`);
+                    const plants = await response.json();
+                    this.displayPlants(category, plants);
+                } catch (error) {
+                    console.error(`Error fetching plants for category ${category}:`, error);
+                    this.addMessage(`Sorry, I'm having trouble loading plants in the ${category} category.`);
+                }
+            }
+
+            displayPlants(category, plants) {
+                const categoryButtons = document.getElementById('categoryButtons');
+                categoryButtons.innerHTML = '';
+                
+                plants.forEach(plant => {
+                    const btn = document.createElement('button');
+                    btn.textContent = plant.name;
+                    btn.classList.add('plant-btn');
+                    btn.addEventListener('click', () => this.loadPlantDetails(plant.id));
+                    categoryButtons.appendChild(btn);
+                });
+
+                const backBtn = document.createElement('button');
+                backBtn.textContent = '← Back to Categories';
+                backBtn.classList.add('category-btn');
+                backBtn.addEventListener('click', () => this.loadCategories());
+                categoryButtons.appendChild(backBtn);
+            }
+
+            async loadPlantDetails(plantId) {
+                try {
+                    const response = await fetch(`/GrowSmart_Web/components/virtual_assistant.php?action=get_plant_details&id=${plantId}`);
+                    const plant = await response.json();
+                    this.displayPlantDetails(plant);
+                } catch (error) {
+                    console.error("Error fetching plant details:", error);
+                    this.addMessage("Sorry, I couldn't load the details for this plant.");
+                }
+            }
+
+            displayPlantDetails(plant) {
+                let careHtml = '';
+                if (plant.care) {
+                    for (const [key, value] of Object.entries(plant.care)) {
+                        if (key !== 'plant_id' && key !== 'id' && value) {
+                            // Format the key to be more readable
+                            const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                            careHtml += `<li><strong>${formattedKey}:</strong> ${value}</li>`;
+                        }
+                    }
+                }
+
+                const benefitsHtml = plant.benefits && plant.benefits.length 
+                    ? plant.benefits.map(benefit => `<li>${benefit}</li>`).join('')
+                    : '<li>No specific benefits listed</li>';
+
+                const detailsHTML = `
+                    <div class="plant-details">
+                        <h3>${plant.name}</h3>
+                        <p><strong>Scientific Name:</strong> ${plant.scientific_name}</p>
+                        <h4>Care Instructions:</h4>
+                        <ul>
+                            ${careHtml || '<li>No specific care instructions listed</li>'}
+                        </ul>
+                        <h4>Benefits:</h4>
+                        <ul>
+                            ${benefitsHtml}
+                        </ul>
+                        <p><strong>Difficulty:</strong> ${plant.difficulty || 'Not specified'}</p>
+                    </div>
+                `;
+                this.addMessage(detailsHTML);
+            }
+
+            handleUserInput() {
+                const userInput = document.getElementById('userInput');
+                const message = userInput.value.trim();
+                
+                if (message) {
+                    this.addMessage(message, 'user');
+                    this.processUserMessage(message);
+                    userInput.value = '';
+                }
+            }
+
+            processUserMessage(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // Check if user is searching for a specific plant
+                this.searchForPlant(lowerMessage).then(found => {
+                    if (found) return;
+
+                    // If not a plant search, proceed with pattern matching
+                    const patterns = {
+                        greetings: ['hi', 'hello', 'hey', 'howdy'],
+                        help: ['help', 'assist', 'guide', 'advice'],
+                        care: ['care', 'grow', 'maintain', 'water', 'light'],
+                        recommend: ['recommend', 'suggest', 'best', 'ideal']
+                    };
+
+                    for (const [type, keywords] of Object.entries(patterns)) {
+                        if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+                            if (type === 'greetings') {
+                                this.addMessage("Hello! I'm your plant care assistant. How can I help you today?");
+                                return;
+                            } else if (type === 'help') {
+                                this.addMessage("I can help you with plant care advice, gardening tips, and identifying plants. What would you like to learn about?");
+                                return;
+                            }
+                        }
+                    }
+
+                    this.addMessage("I'm processing your query... Would you like to explore our plant categories?");
+                    this.loadCategories();
+                });
+            }
+
+            async searchForPlant(query) {
+                try {
+                    const response = await fetch(`/GrowSmart_Web/components/virtual_assistant.php?action=search_plants&query=${encodeURIComponent(query)}`);
+                    const results = await response.json();
+                    
+                    if (results.length > 0) {
+                        // If we found matches
+                        if (results.length === 1) {
+                            // Direct match
+                            await this.loadPlantDetails(results[0].id);
+                        } else {
+                            // Multiple matches
+                            this.addMessage(`I found several plants that match "${query}". Please select one:`);
+                            
+                            const categoryButtons = document.getElementById('categoryButtons');
+                            categoryButtons.innerHTML = '';
+                            
+                            results.forEach(plant => {
+                                const btn = document.createElement('button');
+                                btn.textContent = `${plant.name} (${plant.category})`;
+                                btn.classList.add('plant-btn');
+                                btn.addEventListener('click', () => this.loadPlantDetails(plant.id));
+                                categoryButtons.appendChild(btn);
+                            });
+                            
+                            const backBtn = document.createElement('button');
+                            backBtn.textContent = '← Back to Categories';
+                            backBtn.classList.add('category-btn');
+                            backBtn.addEventListener('click', () => this.loadCategories());
+                            categoryButtons.appendChild(backBtn);
+                        }
+                        return true;
+                    }
+                    return false;
+                } catch (error) {
+                    console.error("Error searching for plants:", error);
+                    return false;
+                }
+            }
+
+            async startPlantQuiz() {
+                try {
+                    const response = await fetch('/GrowSmart_Web/components/virtual_assistant.php?action=get_quiz_questions');
+                    const questions = await response.json();
+                    
+                    if (questions && questions.length > 0) {
+                        this.quizQuestions = questions;
+                        this.currentQuizQuestion = 0;
+                        this.quizScore = 0;
+                        
+                        const quizContent = document.getElementById('quizContent');
+                        document.getElementById('plantQuizModal').style.display = 'flex';
+                        
+                        quizContent.innerHTML = this.generateQuizHTML();
+                    } else {
+                        this.addMessage("Sorry, I couldn't load any quiz questions at the moment.");
+                    }
+                } catch (error) {
+                    console.error("Error loading quiz questions:", error);
+                    this.addMessage("Sorry, I couldn't load the plant quiz at the moment.");
+                }
+            }
+
+            generateQuizHTML() {
+                const question = this.quizQuestions[this.currentQuizQuestion];
+                
+                let html = `
+                    <div class="quiz-question">
+                        <p>Question ${this.currentQuizQuestion + 1} of ${this.quizQuestions.length}</p>
+                        <h3>${question.question}</h3>
+                `;
+                
+                for (let i = 0; i < question.options.length; i++) {
+                    html += `<button onclick="plantChatbot.checkAnswer(${this.currentQuizQuestion}, ${i})">${question.options[i]}</button>`;
+                }
+                
+                html += `</div>`;
+                
+                return html;
+            }
+
+            checkAnswer(questionIndex, selectedIndex) {
+                const question = this.quizQuestions[questionIndex];
+                const buttons = document.querySelectorAll('.quiz-question button');
+                
+                // Disable all buttons
+                buttons.forEach(btn => btn.disabled = true);
+                
+                // Mark the correct and incorrect answers
+                if (selectedIndex === question.correctAnswer) {
+                    buttons[selectedIndex].classList.add('correct');
+                    this.quizScore++;
+                } else {
+                    buttons[selectedIndex].classList.add('incorrect');
+                    buttons[question.correctAnswer].classList.add('correct');
+                }
+                
+                // Continue to next question after delay
+                setTimeout(() => {
+                    this.currentQuizQuestion++;
+                    
+                    if (this.currentQuizQuestion < this.quizQuestions.length) {
+                        document.getElementById('quizContent').innerHTML = this.generateQuizHTML();
+                    } else {
+                        this.displayQuizResults();
+                    }
+                }, 1500);
+            }
+            
+            displayQuizResults() {
+                const percentage = Math.round((this.quizScore / this.quizQuestions.length) * 100);
+                
+                let message = `<h2>Quiz Complete!</h2>`;
+                message += `<div id="quizScore">Your score: ${this.quizScore}/${this.quizQuestions.length} (${percentage}%)</div>`;
+                
+                if (percentage >= 80) {
+                    message += `<p>Excellent! You're a plant care expert!</p>`;
+                } else if (percentage >= 60) {
+                    message += `<p>Good job! You know your plants well.</p>`;
+                } else {
+                    message += `<p>Keep learning! Plants have many secrets to reveal.</p>`;
+                }
+                
+                message += `<button onclick="document.getElementById('plantQuizModal').style.display='none'" style="background-color: var(--primary-green); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 15px;">Close Quiz</button>`;
+                
+                document.getElementById('quizContent').innerHTML = message;
+                
+                // Also add message to chat
+                this.addMessage(`You completed the plant quiz with a score of ${this.quizScore}/${this.quizQuestions.length} (${percentage}%)`);
+            }
+        }
+
+        let plantChatbot;
+        document.addEventListener('DOMContentLoaded', () => {
+            plantChatbot = new PlantChatbot();
+            window.plantChatbot = plantChatbot; // Make it accessible globally for quiz buttons
+        });
+    </script>
+</body>
+</html>

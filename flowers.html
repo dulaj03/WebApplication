@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowSmart - Flowers</title>
+    <link rel="icon" type="image/png" href="Img/TitleLogo.png">
+    <link rel="stylesheet" href="css/flowers.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // Function to load header component
+        function loadHeader() {
+            fetch('components/header.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                    document.getElementById('header-container').innerHTML = '<p>Error loading header. Please refresh the page.</p>';
+                });
+        }
+        
+        // Load header when the document is ready
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+    
+    </head>
+    <!-- Header container where the header will be loaded -->
+    <div id="header-container"></div>
+    </br>
+</br>
+</br>
+</br>
+    
+</br>
+</br>
+
+<body>
+    <header>
+        <h1>Flower Plants Guide</h1>
+        
+    </header>
+
+    <main>
+        <section id="intro">
+            <h2>Welcome to the World of Flower plants</h2>
+            <p>Discover the best flower plants for your home and learn how to take care of them.</p>
+            <input type="text" id="searchBox" placeholder="Search for a plant..." onkeyup="filterPlants()">
+        </section>
+
+        <section id="plant-list">
+            <div class="plant" data-name="Roses">
+                <img src="Img/roses.webp" alt="Roses">
+                <h3>Roses - රෝස</h3>
+                <p>Roses are classic flowering plants known for their beautiful, fragrant blooms in various colors, including red, pink, white, and yellow.</p>
+                
+            </div>
+
+            <div class="plant" data-name="Sunflowers">
+                <img src="Img/sunflower.jpg" alt="Sunflowers">
+                <h3>Sunflowers - සූරියකාන්ත</h3>
+                <p>Sunflowers are bright, cheerful flowers with large, yellow petals and a dark center, growing tall in the summer.</p>
+            </div>
+
+            <div class="plant" data-name="Tulips">
+                <img src="Img/tulip.jpeg" alt="Tulips">
+                <h3>Tulips - ටියුලිප්</h3>
+                <p>Tulips are elegant, cup-shaped flowers available in a variety of colors, blooming in spring.</p>
+            </div>
+
+            <div class="plant" data-name=" Marigolds">
+                <img src="Img/marigold.jpg" alt="Marigolds ">
+                <h3>Marigolds - දාස්පෙතියා</h3>
+                <p>Marigolds are hardy, bright flowers in orange, yellow, and red hues, known for their pest-repelling properties.</p>
+            </div>
+            
+            <div class="plant" data-name="Daisies">
+                <img src="Img/daisies.jpg" alt="Daisies">
+                <h3>Daisies - ඩේසි</h3>
+                <p>Daisies are cheerful flowers with white petals and yellow centers, often found in gardens and wild landscapes.</p>
+            </div>
+            
+            <div class="plant" data-name="Lavender">
+                <img src="Img/lavender.webp" alt="Lavender">
+                <h3>Lavender - ලැවෙන්ඩර්</h3>
+                <p>Lavender is a fragrant herb with purple flower spikes, valued for its calming scent and medicinal properties.</p>
+            </div>
+            
+            <div class="plant" data-name="Orchids">
+                <img src="Img/orchid.avif" alt="Orchids">
+                <h3>Orchids - ඕකිඩ්</h3>
+                <p>Orchids are exotic, delicate flowers that come in many colors and shapes, often grown indoors.</p>
+            </div>
+            
+            <div class="plant" data-name="Lilies">
+                <img src="Img/lily.webp" alt="Lilies">
+                <h3>Lilies - ලිලී මල්</h3>
+                <p>Lilies are elegant, trumpet-shaped flowers in various colors, often used in bouquets and gardens.</p>
+            </div>
+        </section>
+
+        <div class="plant-guide">
+
+            <div class="guide" data-target="Roses">
+                <button class="btn-close">&times;</button>
+                <h3>Roses</h3>
+                <p>How to Grow:
+                    Plant in well-drained soil with full sun (at least 6 hours daily).
+                    Water regularly, keeping soil moist but not soggy.                  
+                    Prune to encourage healthy growth and remove dead branches.                   
+                    Use mulch to retain moisture and prevent weeds.                   
+                    Fertilize during the growing season.</p>
+            </div>
+
+            <div class="guide" data-target="Sunflowers ">
+                <button class="btn-close">&times;</button>
+                <h3>Sunflowers</h3>
+                <p>How to Grow:
+                    Plant in direct sunlight with well-draining soil. 
+                    Space seeds 6 inches apart in rows.                   
+                    Water regularly but avoid overwatering.                   
+                    Stake taller plants to prevent bending.
+                    Harvest seeds if desired after flowers dry.</p>
+            </div>
+
+            <div class="guide" data-target="Tulips">
+                <button class="btn-close">&times;</button>
+                <h3>Tulips</h3>
+                <p>How to Grow:
+                    Plant bulbs in autumn, about 6 inches deep in well-draining soil.                    
+                    Choose a location with full or partial sun.                   
+                    Water after planting, but avoid excess moisture.                  
+                    Allow foliage to die naturally after blooming to store energy for next year.</p>
+            </div>
+
+            <div class="guide" data-target="Marigolds ">
+                <button class="btn-close">&times;</button>
+                <h3> Marigolds</h3>
+                <p>How to Grow:
+                    Plant in full sun with moderately fertile soil.                   
+                    Water regularly but allow soil to dry between watering.                   
+                    Deadhead spent blooms to encourage continuous flowering.                   
+                    Fertilize occasionally for best results.</p>
+            </div>
+            
+            <div class="guide" data-target="Daisies">
+                <button class="btn-close">&times;</button>
+                <h3>Daisies</h3>
+                <p>How to Grow:
+                    Plant in well-drained soil with full sun or partial shade.                   
+                    Water regularly but avoid soggy soil.                   
+                    Deadhead flowers to extend blooming.                  
+                    Divide plants every few years to prevent overcrowding.</p>
+            </div>
+            
+            <div class="guide" data-target="Lavender ">
+                <button class="btn-close">&times;</button>
+                <h3>Lavender </h3>
+                <p>How to Grow:
+                    Plant in well-draining, sandy soil with full sun.                   
+                    Water sparingly; lavender prefers dry conditions.                   
+                    Prune after blooming to maintain shape.                   
+                    Avoid over-fertilizing to prevent weak growth.</p>
+            </div>
+            
+            <div class="guide" data-target="Orchids ">
+                <button class="btn-close">&times;</button>
+                <h3>Orchids </h3>
+                <p>How to Grow:
+                    Use well-draining orchid potting mix (bark or moss).                   
+                    Keep in bright, indirect sunlight.                   
+                    Water once a week, allowing roots to dry in between.                   
+                    Maintain high humidity and good air circulation.</p>
+            </div>
+            
+            <div class="guide" data-target="Lilies">
+                <button class="btn-close">&times;</button>
+                <h3>Lilies </h3>
+                <p>How to Grow:
+                    Plant bulbs in spring or fall in well-drained soil.                   
+                    Choose a sunny location with some afternoon shade.                   
+                    Water regularly but avoid overwatering.                   
+                    Mulch to retain moisture and regulate temperature.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="flowers.js"></script>
+
+     <!--footer section starts-->
+     <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+               <h3>Growsmart <i class="fas fa-seedling"></i></h3>
+               <p>"Sustainable Farming for a Greener Tomorrow."</p>
+               <div class="social-links">
+                <a href="https://www.facebook.com/yourpage" target="_blank" class="fab fa-facebook"></a>
+                <a href="https://www.youtube.com/yourchannel" target="_blank" class="fab fa-youtube"></a>
+                <a href="https://www.instagram.com/yourprofile" target="_blank" class="fab fa-instagram"></a>
+            </div>
+            
+            </div>
+
+            <div class="box">
+                <h3>Contact Info</h3>
+                <a href="#" class="links"><i class="fas fa-phone" onclick="openTelLink()"></i>+94 11 111 1111</a>
+                <a href="#" class="links"><i class="fas fa-phone" onclick="openTelLink()"></i>+94 22 222 2222</a>
+                <a href="mailto:Growsmart@gmail.com" class="links"><i class="fas fa-envelope" onclick="checker()"></i>Growsmart@gmail.com</a>
+                <a href="#" class="links"><i class="fas fa-map-marker-alt"></i>Colombo,sri lanka</a>
+             </div>  
+             
+             <div class="box">
+                <h3>Quick Links</h3>
+                <a href="home new.html" class="links"><i class="fas fa-arrow-right"></i>Home</a>
+            
+                <!-- Dropdown for Plants -->
+                <div class="dropdown">
+                    <a href="Plants" class="links dropdown-toggle">
+                        <i class="fas fa-arrow-right"></i>categories ▼
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="indoorplants.html">House Plants</a>
+                        <a href="fruits & vegetables.html">Fruits and Vegetables</a>
+                        <a href="flowers.html">Flowers</a>
+                        <a href="sustainable.html">Sustainability Garden</a>
+                        </div>
+                </div>
+            </br>
+                <a href="shop.php" class="links"><i class="fas fa-arrow-right"></i>Shop</a>
+                <a href="offer.php" class="links"><i class="fas fa-arrow-right"></i>Offers</a>
+                <a href="Competition.html" class="links"><i class="fas fa-arrow-right"></i>Compitition</a>
+                <div class="dropdown">
+                    <a href="chat" class="links dropdown-toggle">
+                        <i class="fas fa-arrow-right"></i> Chat ▼
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="components/Virtual Assistant.html">AI Chat</a>
+                        <a href="server/public/index.html">Community</a>
+                    
+                    </div>
+                </div>
+            </br>
+                <div class="dropdown">
+                    <a href="More" class="links dropdown-toggle">
+                        <i class="fas fa-arrow-right"></i>More ▼
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="Learning.html">Learning</a>
+                        <a href="Idea & Inspiration.html">Ideas & Inspiration</a>
+                    </div>
+                </div>
+            </div>
+            
+
+             <div class="box">
+                <h3>Newsletter</h3>
+                <p>Stay us with more informations</p>
+            
+                <div class="box">
+                    <h3>User informations</h3>
+                <a href="guidelines.html" class="links">User Guidelines</a>
+
+                <div class="box">
+                    <h3>Terms and Conditions</h3>
+                <a href="Terms and Conditions.html" class="links">Terms and Conditions</a>
+               
+                <div class="box">
+                    <h3>Privacy and Policy</h3>
+                <a href="Privacy and Policy.html" class="links">Privacy and Policy</a>
+
+
+                
+             </div>  
+        </div>
+
+    </br></br></br></br>
+
+       
+    </section>
+    <!--footer section ends-->
+
+
+    <body>
+        <section class="footer">
+            <div class="credit">
+                created by <span>© 2025 GrowSmart.</span> | all rights reserved
+            </div>
+        </section>
+        <script src="js/flowers.js"></script>
+    </body>
+</body>
+</html>
